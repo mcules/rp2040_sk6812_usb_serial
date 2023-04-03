@@ -3,7 +3,7 @@
 #include <ArduinoJson.h>
 
 #define LED_PIN   28 // pin which connects to led stripe
-#define LED_NUM   10 // Number of pixels in led stripe
+#define LED_NUM   187 // Number of pixels in led stripe
 #define LED_TYPES NEO_GRBW // Type of LEDs (NEO_GRBW / NEO_GRB)
 #define LED_SPEED NEO_KHZ800 // communication speed to leds
 #define SERIAL_SPEED 115200 // Speed of serial interface
@@ -24,8 +24,9 @@ bool serial_get_json() {
 
   DeserializationError error = deserializeJson(jsonDocument, jsonString); // parsestring to json
   if (error) {
-    Serial.print(F("deserializeJson() failed: "));
-    Serial.println(error.c_str());
+    //Serial.print(F("deserializeJson() failed: "));
+    //Serial.println(error.c_str());
+    Serial.println(500); // error occured, return failure
     return false;
   }
 
@@ -43,6 +44,7 @@ void loop() {
       }
       
       pixels.show(); // Show pixels
+      Serial.println(200); // all okay, return success
     }
   }
 }
