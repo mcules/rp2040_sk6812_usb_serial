@@ -19,10 +19,10 @@ void setup() {
 
 // get json data from serial usb
 bool serial_get_json() {
-  String s = Serial.readStringUntil('\n'); // wait until \n is given
-  s.replace("\n", "NUL, 0");
+  String jsonString = Serial.readStringUntil('\n'); // wait until \n is given
+  jsonString.replace("\n", "NUL, 0");
 
-  DeserializationError error = deserializeJson(jsonDocument, s); // parsestring to json
+  DeserializationError error = deserializeJson(jsonDocument, jsonString); // parsestring to json
   if (error) {
     Serial.print(F("deserializeJson() failed: "));
     Serial.println(error.c_str());
@@ -38,8 +38,8 @@ void loop() {
       pixels.clear(); // Set all pixel colors to 'off'
 
       // iterate through all pixels
-      for (JsonObject pixel : jsonDocument.as<JsonArray>()) {
-        setPixelColor(pixel["id"], pixel["rgbw"][0], pixel["rgbw"][1], pixel["rgbw"][2], pixel["rgbw"][3], pixel["bri"]);
+      for (JsonArray pixel : jsonDocument.as<JsonArray>()) {
+        setPixelColor(pixel[0], pixel[1], pixel[2], pixel[3], pixel[4], pixel[5]);
       }
       
       pixels.show(); // Show pixels
