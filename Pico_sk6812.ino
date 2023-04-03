@@ -14,6 +14,7 @@ DynamicJsonDocument jsonDocument(10240);
 void setup() {
   Serial.begin(SERIAL_SPEED); // Initialize serial port
   pixels.begin(); // Initialize NeoPixel strip object (REQUIRED)
+  pixels.clear();
 }
 
 // get json data from serial usb
